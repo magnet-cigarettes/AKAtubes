@@ -1,0 +1,147 @@
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f7fa;
+    color: #333;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    color: #34495e;
+    font-size: 2.2em;
+    margin-bottom: 10px;
+    animation: fadeIn 1.2s ease;
+}
+
+header p {
+    font-size: 1.1em;
+    color: #7f8c8d;
+}
+
+h2 {
+    color: #2980b9;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+}
+
+.table-container {
+    margin-bottom: 30px;
+    animation: slideUp 0.8s ease;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th {
+    background: #3498db;
+    color: #fff;
+    padding: 12px;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+tr:hover {
+    background: #f1c40f;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-section {
+    text-align: center;
+}
+
+.search-section input {
+    width: 60%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-section button {
+    padding: 12px 20px;
+    font-size: 16px;
+    background: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.search-section button:hover {
+    background: #27ae60;
+}
+
+#search-result {
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: #e74c3c;
+}
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.9em;
+    color: #95a5a6;
+}
+
+footer i {
+    color: #e74c3c;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

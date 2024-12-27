@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Plat Nomor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 20px;
+            line-height: 1.6;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .search-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .search-container input {
+            padding: 10px;
+            width: 200px;
+            font-size: 16px;
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .search-container button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .execution-time {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Data Jumlah Liter Berdasarkan Plat Nomor</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Plat Nomor</th>
+                <th>Jumlah Liter</th>
+            </tr>
+        </thead>
+        <tbody id="data-table">
+            <!-- Data will be dynamically inserted here -->
+        </tbody>
+    </table>
+
+    <div class="search-container">
+        <h2>Cari Plat Nomor</h2>
+        <input type="text" id="search-input" placeholder="Masukkan Plat Nomor">
+        <button onclick="searchPlate()">Cari</button>
+    </div>
+
+    <div id="result"></div>
+    <div class="execution-time" id="execution-time"></div>
+
+    <script>
+        const data = [];
+
+        // Generate 100 plat nomor with random liter values
+        for (let i = 1; i <= 5000; i++) {
+            const plate = `AB${i.toString().padStart(4, '0')}CD`;
+            const liters = Math.floor(Math.random() * 13) + 3; // Random between 3 and 15
+            data.push({ plate, liters });
+        }
+
+        // Display data in table
+        const tableBody = document.getElementById('data-table');
+        data.forEach((item, index) => {
+            const row = `<tr>
+                            <td>${index + 1}</td>
+                            <td>${item.plate}</td>
+                            <td>${item.liters} liter</td>
+                        </tr>`;
+            tableBody.insertAdjacentHTML('beforeend', row);
+        });
+
+        // Search function
+        function searchPlate() {
+            const input = document.getElementById('search-input').value.trim().toUpperCase();
+            const resultDiv = document.getElementById('result');
+            const executionTimeDiv = document.getElementById('execution-time');
+
+            if (!input) {
+                resultDiv.textContent = 'Masukkan nomor plat untuk mencari!';
+                executionTimeDiv.textContent = '';
+                return;
+            }
+
+            // Iterative search
+            const startIterative = performance.now();
+            const iterativeResult = data.find(item => item.plate === input);
+            const endIterative = performance.now();
+            const iterativeTime = (endIterative - startIterative).toFixed(4);
+
+            // Recursive search
+            function recursiveSearch(array, target, index = 0) {
+                if (index >= array.length) return null;
+                if (array[index].plate === target) return array[index];
+                return recursiveSearch(array, target, index + 1);
+            }
+
+            const startRecursive = performance.now();
+            const recursiveResult = recursiveSearch(data, input);
+            const endRecursive = performance.now();
+            const recursiveTime = (endRecursive - startRecursive).toFixed(4);
+
+            // Display results
+            if (iterativeResult) {
+                resultDiv.textContent = `${input} - ${iterativeResult.liters} liter`;
+            } else {
+                resultDiv.textContent = `${input} tidak ditemukan!`;
+            }
+
+            executionTimeDiv.textContent = `Iterative time: ${iterativeTime} ms | Recursive time: ${recursiveTime} ms`;
+        }
+    </script>
+</body>
+</html>
